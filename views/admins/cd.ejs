@@ -1,0 +1,121 @@
+<% include ../partials/header %>
+
+
+<div class="container"><!-- container -->
+    <br><br><br><br>
+
+    <div class="row"> <!-- main row -->
+      <form class="col s12" method="GET" action="/admin">
+
+         <div class="col s2"></div>
+
+          <div class="col s8">
+            
+            <div class="row"> 
+                    <div class="input-field col s3">
+                            <select name="type">
+                              <% if(search) { %>
+                                    <% if(type === 'client') { %>
+                                        <option value="client" selected>Client</option>
+                                        <option value="country">Country</option>
+                                    <% } else { %>
+                                        <option value="client">Client</option>
+                                        <option value="country" selected>Country</option>
+                                    <% } %>
+                              <% }else { %>
+                                <option value="client" selected>Client</option>
+                                <option value="country">Country</option>
+                              <% } %>
+                              
+                            </select>
+                            <label></label>
+                    </div>
+
+                    <div class="input-field col s9">
+                            <% if(search) { %>
+                                <input placeholder="" id="search" type="text" class="validate" name="search" value="<%= searchString %>">
+                            <% } else {%>
+                            <input placeholder="" id="search" type="text" class="validate" name="search">
+                            <% } %>
+                            <label for="search">Search</label>
+                        <div class="right-align">
+                            <button class="btn waves-effect blue" type="submit" name="action">Search
+                                    <i class="material-icons right">search</i>
+                            </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    
+            </div>
+            
+            <div class="row">
+            <% if(search) { %>
+              <%  if(type == 'client') { %>
+                    <% if(agencies.length > 0) { %>
+                        <% agencies.forEach((agency) => { %>
+                        <div class="card-panel hoverable">
+                          <ul class="result">
+                              <li><h6><a href="/admin/client/<%=agency.id%>/edit"><%= agency.name %></a></h6></li>
+                              <li><p>Contact No.: <%=agency.contact %></p></li>
+                              <li><p>Contact Person: <%=agency.contactPerson %></p></li>
+                              <li><p>Address: <%= agency.address %></p></li>
+                              <li><p>Status: <%= agency.status.toUpperCase(); %></p></li>
+                          </ul>
+                        </div>
+                        <% }) %>
+                     <% }else { %>
+                        <p>no record found</p>
+                    <% } %>
+              <%  } else { %>
+                    <!-- country form -->
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Country Name</th>
+                                <th>Status</th>
+                                <th>View</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <% let count = 0 %>
+                        <% countries.map(country => { %>
+                        <% count++ %>
+                            <tr>
+                                    <td><%= count %></td>
+                                    <td><%= country.name %></td>
+                                    <td><%= country.status %></td>
+                                    <td><a href="/admin/country/<%=country.id%>/edit">Edit</a></td>
+                            </tr>
+                        <% }) %>
+                        </tbody>
+                    </table>
+              <%  } %>
+            <% } %> 
+            </div>
+          </div>
+
+         <div class="col s2"></div>
+         
+<div class="row">
+    <div class="col s12">
+         <div class="fixed-action-btn">
+            <a class="btn-floating btn-large red">
+              <i class="large material-icons">add</i>
+            </a>
+            <ul>
+              <li><a class="btn-floating green" href="admin/client/add"><i class="material-icons">people</i></a></li>
+              <li><a class="btn-floating blue" href="admin/country/add"><i class="material-icons">flag</i></a></li>
+            </ul>
+         </div>
+    </div>
+</div>
+         
+         
+    </div><!-- main row -->
+
+</div><!-- container -->
+
+
+<% include ../partials/footer %>

@@ -1,0 +1,33 @@
+<% include ../partials/header %>
+
+<div class="container"><!-- container -->
+   
+    <table id="ofw-table" class="table table-hover">
+        <thead class="table-headers">
+          <tr>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Middle Name</th>
+            <th>Passport No</th>
+            <th>Destination</th>
+            <th>Date of Availment</th>
+            <th>View Result</th>
+          </tr>
+        </thead>
+        <tbody>
+  <% records.forEach((record) => { %>
+          <tr>
+              <td><%= record.patient.lastname%></td>
+              <td><%= record.patient.firstname%></td>
+              <td><%= record.patient.middlename %></td>
+              <td><%= record.passport %></td>
+              <td><%= record.destination %></td>
+              <td><%= moment(record.availmentDate).format('MMMM DD, YYYY');%></td>
+              <!-- <td><a href="/client/record/<%=record.id%>">View</td> -->
+              <td class="center-icon"><a href="/patients/<%= record.patient.id %>/records/<%= record.id %>/results"><i class="material-icons ">insert_drive_file</i></a></td>
+          </tr>
+  <% }) %>
+        </tbody>
+    </table>
+</div><!-- container -->
+<% include ../partials/footer %>

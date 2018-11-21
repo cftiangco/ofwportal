@@ -1,0 +1,164 @@
+<% include ../partials/header %>
+
+
+<div class="container"><!-- container -->
+    <br><br>
+
+    <div class="row"> <!--  search row -->
+
+    <div class="row"> <!-- main row -->
+            <form class="col s12" method="POST" action="/users/<%=user.id%>/edit/?_method=PUT">
+              <input type="hidden" name="_method" value="PUT">
+                <div class="col s2"></div>
+                
+                <div class="col s8">
+                    <div class="row">
+                            <% if(errors) { %>
+                                <ul>
+                                        <% errors.forEach((e) => { %>
+                                        <div class="alert alert-danger">
+                                            <strong><b>Warning!</b></strong> <%= e.msg %>
+                                        </div>
+                                        <% }) %>
+                                </ul>
+                            <% } %>
+                    </div>
+                    <div class="row"><!--row 1-->
+                        <div class="input-field col s4">
+                            <% if(errors) { %>
+                                <input id="last_name" type="text" class="validate" name="last_name" value="<%= lastname %>">
+                            <% } else { %>
+                                <input id="last_name" type="text" class="validate" name="last_name" value="<%= user.lastname %>">
+                            <% } %>
+                            <label for="last_name">Last Name</label>
+                            <span id="lastname-validation" class="error-message"></span>
+                    </div>
+
+                        <div class="input-field col s4">
+                            <% if(errors) { %>
+                                <input id="first_name" type="text" class="validate" name="first_name" value="<%=firstname %>">
+                            <% } else { %>
+                                <input id="first_name" type="text" class="validate" name="first_name" value="<%= user.firstname %>">
+                            <% } %>
+                            <label for="first_name">First Name</label>
+                            <span id="firstname-validation" class="error-message"></span>
+                        </div>
+
+                        <div class="input-field col s4">
+                            <% if(errors) { %>
+                                <input id="middle_name" type="text" class="validate" name="middle_name" value="<%= middlename %>">
+                            <% } else { %>
+                                <input id="middle_name" type="text" class="validate" name="middle_name" value="<%= user.middlename %>">
+                            <% } %>
+                            <label for="middle_name">Middle Name</label>
+                            <span id="middlename-validation" class="error-message"></span>
+                        </div>
+                    </div><!--row 1-->
+
+                    <div class="row"><!--row 2-->
+                      <div class="input-field col s4">
+                          <input id="username" type="text" class="validate" name="username" value="<%= user.username %>">
+                          <label for="username">Username</label>
+                          <span id="username-validation" class="error-message"></span>
+                      </div>
+                      <!--
+                      <div class="input-field col s4">
+                          <input id="password" type="text" class="validate" name="password">
+                          <label for="password">Password</label>
+                          <span id="password-validation" class="error-message"></span>
+                      </div>
+
+                      <div class="input-field col s4">
+                          <input id="confirm_password" type="text" class="validate" name="confirm_password">
+                          <label for="confirm_password">Confirm Password</label>
+                          <span id="confirm_password-validation" class="error-message"></span>
+                      </div>
+                      -->
+                  </div><!--row 2-->
+                  
+                  <% let userTypes = ['admin','client','doctor','user']; %>
+                  <div class="row"><!--row 3-->
+                    <div class="input-field col s4">
+                        <select name="user_type" id="user_type" onchange="displayAgency()" required>
+                            <option value="" disabled selected>Choose your option</option>
+                            <% userTypes.forEach((type) => { %>
+                            <option value="<%= type %>" <% let typ = user.userType === type ? "selected":""; %><%= typ %>><%= type.charAt(0).toUpperCase() + type.slice(1) %></option>
+                            <% }) %>
+                        </select>
+                        <label>User Type</label>
+                        
+                    </div>
+                  <% if(user.userType === 'client') { %>
+                    <div class="input-field col s8" id="agency" style="display:block;">
+                        <select name="agency_name">
+                            <option value="" disabled selected>Choose your option</option>
+                              <% agencies.forEach((agency)=> { %>
+                                <option value="<%= agency.name %>"
+                                  <% let agen = user.agency === agency.name ? "selected":"";%><%= agen %>
+                                  ><%= agency.name %></option>
+                              <% }) %>
+                        </select>
+                        <label>Agency</label>
+                    </div>
+                  <% } %>
+                    <div class="input-field col s4">
+                    </div>
+
+                  </div><!--row 3 -->
+
+                  <div class="row"><!-- row 4-->
+
+                    <div class="input-field col s4">
+                        <p>
+                            <label>Status : </label>
+                            <label>
+                            <input class="with-gap" name="status" type="radio" value="active" 
+                            <% let active = user.status === "active" ? "checked":"" %><%= active %>>
+                            <span>Active</span>
+                            </label>
+
+                            <label>
+                            <input class="with-gap" name="status" type="radio" value="inactive" 
+                            <% let inactive = user.status === "inactive" ? "checked":"" %><%= inactive %>/>
+                            <span>Inactive</span>
+                            </label>
+                        </p>
+
+                        <a href="/users/<%=user.id%>/password/edit">Change User Password</a>
+                        <br/>
+                  </div>
+
+                  <div class="input-field col s4 offset-s4 right">
+                      <div class="wrapper right-align">                               
+                          <button type="submit" class="waves-effect btn"><i class="material-icons right">save</i>Update</button>
+                        </form>
+                  </div>
+
+                  
+
+                      
+                  </div>
+
+                </div> <!-- row 4-->
+
+
+                </div>
+
+                <div class="col s2"></div>
+    </div><!-- main row -->
+</div><!-- container -->
+
+<script type="text/javascript">
+  let userType = document.getElementById('user_type');
+  let agency = document.getElementById('agency');
+
+  function displayAgency() {
+      if(userType.value === 'client') {
+        agency.style.display = 'block';
+      } else {
+        agency.style.display = 'none';
+      }
+  }
+</script>
+
+<% include ../partials/footer %>

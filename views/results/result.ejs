@@ -1,0 +1,113 @@
+<% include ../partials/header %>
+<div class="container"><!-- container -->
+  <% include ../partials/patient-profile %>
+    <br><br>
+    <div class="row"> <!-- main row -->
+
+           <div class="col s12"><!-- s12 -->
+
+                   <div class="col s2">
+                            <ul class="collection">
+                                <li class="collection-item active col-item">Status</li>
+                                <li class="collection-item"><%= result.status.toUpperCase() %></li>
+                            </ul>
+
+                            <ul class="collection">
+                                <li class="collection-item active col-item">Visit Date</li>
+                                <li class="collection-item"><%= moment(result.date).format('L') %></li>
+                            </ul>
+
+                            <ul class="collection">
+                                <li class="collection-item active col-item">Evaluator</li>
+                                <li class="collection-item"><%= result.evaluator %></li>
+                                </li>
+                            </ul>
+
+                            <% if(user.userType !== 'client') { %>
+                                <ul class="collection">
+                                    <li class="collection-item active col-item">Privacy</li>
+                                    <li class="collection-item"><%= result.privacy %></li>
+                                </ul>
+                            <% } %>
+                                
+                            <ul class="collection">
+                                <li class="collection-item active col-item">Timestamp</li>
+                                <li class="collection-item"><%=moment(result.created_at).format('MMMM DD, YYYY hh:mm:ss') %></li>
+                            </ul>
+                   </div>
+
+                   <div class="col s10">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="result-head">Findings</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td ><%= result.findings %></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="result-head">Recommendation</th>
+                                        <th class="result-head">Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><%= result.recommendation %></td>
+                                        <td><%= result.remarks %></td>
+                                    </tr>
+                                </tbody>
+                        </table>
+
+                        <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="result-head">Follow Up</th>
+                                        <th class="result-head">Clearance</th>
+                                        <th class="result-head">Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><%= result.followUp %></td>
+                                        <td><%= result.clearance %></td>
+                                        <td><%= result.note %></td>
+                                    </tr>
+                                </tbody>
+                        </table>
+                   </div>
+
+                   <div class="row">
+                        <div class="fixed-action-btn">
+                                <a class="btn-floating btn-large red">
+                                <i class="large material-icons">menu</i>
+                                </a>
+                            <ul>
+                                <li>
+                                    <form action="/patients/<%=patient.id%>/records/<%=record.id%>/results/<%=result.id%>/delete/?_method=DELETE" method="POST">
+                                        <input type="hidden" name="_method" value="DELETE"> 
+                                        <button type="submit" class="red" style="border-radius: 100%;" onclick="return customeDelete()"><i class="material-icons" style="color:white;">delete</i></button>
+                                    </form>
+                                </li>
+
+                                <li><a class="btn-floating yellow darken-1" href="/patients/<%=patient.id%>/records/<%=record.id%>/results/<%=result.id%>/edit"><i class="material-icons">edit</i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+           </div><!-- s12 -->
+              
+    </div><!-- main row -->
+    
+    
+</div><!-- container -->
+
+
+
+
+<% include ../partials/footer %>

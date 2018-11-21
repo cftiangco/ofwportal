@@ -1,0 +1,43 @@
+<% include ../partials/header %>
+<main>
+<div class="container"><!--container --> 
+
+        <div class="table-responsive" id="main-table"><!-- table-responsive -->
+            <table class="table table-hover" id="ofw-table">
+                <thead class="table-headers">
+                    <tr>
+                        <th>#</th>
+                        <th>Last Name</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Gender</th>
+                        <th>Birthdate</th>
+                        <th>View</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    <% let count = 0; %>
+                    <% patients.forEach((patient) => { %>
+                    <% count++ %>
+                        <tr>
+                            <td><%= count %></td>
+                            <td><%= patient.lastname %></td>
+                            <td><%= patient.firstname %></td>
+                            <td><%= patient.middlename %></td>
+                            <td><%= patient.gender%></td>
+                            <td><%= moment(patient.birthdate).format('MMM/DD/YYYY');%></td>
+                            <td><a href="/patients/<%= patient.id %>/records"><i class="material-icons">remove_red_eye</i></a></td>
+                        </tr>
+                    <% }) %>
+                <tbody>
+            </table>
+        </div><!-- table-reponsive -->
+           
+                    
+    <div class="fixed-action-btn">
+                    <a href="/patients/add" class="btn-floating btn-large waves-light red modal-trigger pulse" ><i class="large material-icons">add</i></a>
+    </div>
+
+</div><!-- container -->
+  
+<% include ../partials/footer %>

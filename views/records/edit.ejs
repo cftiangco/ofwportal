@@ -1,0 +1,140 @@
+<% include ../partials/header %>
+
+<div class="container"><!-- container -->
+    <br><br>
+    <div class="row"> <!-- main row -->
+            <form class="col s12" method="POST" action="/patients/<%=patient.id%>/records/<%=record.id%>/edit/?_method=PUT">
+            <input type="hidden" name="_method" value="PUT">
+                <div class="row">
+                  <div class="col s4"></div>
+
+                  <div class="col s4"><!--col s4-->
+
+                    <div class="row">
+                            <% if(errorMsg) { %>
+                                <%- errorMsg  %>
+                            <% } %>
+                            
+                        <% if(errors) { %>
+                            <ul>
+                                    <% errors.forEach((e) => { %>
+                                    <div class="alert alert-danger">
+                                        <strong><b>Warning!</b></strong> <%= e.msg %>
+                                    </div>
+                                    <% }) %>
+                            </ul>
+                        <% } %>
+                    </div>
+
+                    <div class="row">
+                      <div class="input-field col s12">
+                          <% if(errors || errorMsg) { %>
+                            <input id="availment_date" type="date" class="validate" name="availment_date" value="<%= moment(availmentDate).format('YYYY-MM-DD');%>">
+                          <% } else { %>
+                            <input id="availment_date" type="date" class="validate" name="availment_date" value="<%= moment(record.availmentDate).format('YYYY-MM-DD');%>">
+                          <% } %>
+                          <label for="availment_date">Availment Date</label>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <% if(errors || errorMsg) { %>
+                                <input id="passport" type="text" class="validate" name="passport" value="<%= passport %>">
+                            <% } else { %>
+                                <input id="passport" type="text" class="validate" name="passport" value="<%= record.passport%>">
+                            <% } %>
+                            <label for="passport">Passport No.</label>
+                            <span id="passport-validation" class="error-message"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                          <select name="destination">
+                              <option value="" disabled>Choose your option</option>
+                              <% if(errors || errorMsg) { %>
+                                <% countries.forEach((country) => { %>
+                                    <% if(country.name === destination){ %>
+                                        <option value="<%=country.name%>" selected><%= country.name %></option>
+                                    <% }else { %>
+                                        <option value="<%=country.name%>"><%= country.name %></option>
+                                    <% } %>
+                                <% }) %>
+                              <% } else { %>
+                                <% countries.forEach((country) => { %>
+                                    <option value="<%=country.name%>"
+                                      <% let des = record.destination === country.name ? "selected":"";%>
+                                      <%= des %>><%= country.name %></option>
+                                  <% }) %>
+                              <% } %>
+                          </select>
+                          <label>Destination</label>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="input-field col s12">
+                          <select name="agency">
+                              <option value="" disabled selected>Choose your option</option>
+                              <% if(errors || errorMsg) { %>
+                                <% agencies.forEach((agen)=> { %>
+                                    <% if(agen.name === agency) { %>
+                                        <option value="<%= agen.name %>" selected><%= agen.name %></option>
+                                    <% } else { %>
+                                        <option value="<%= agen.name %>"><%= agen.name %></option>
+                                    <% } %>
+                                <% }) %>
+                              <% } else { %>
+                                <% agencies.forEach((agency)=> { %>
+                                    <option value="<%= agency.name %>" <% let agen = record.agency === agency.name ?"selected":""; %><%= agen %>><%= agency.name %></option>
+                                <% }) %>
+                              <% } %>
+                          </select>
+                          <label>Agency/Company</label>
+                        </div>
+                    </div>
+
+                    <!-- new -->
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select name="examiner">
+                                <option value="" disabled selected>Choose your option</option>
+                                <% if(errors) { %>
+                                    <% doctor.map(d => { %>
+                                        <% if(doctorFormat(d) === examiner) { %>
+                                            <option value="<%= doctorFormat(d) %>" selected><%= doctorFormat(d) %></option>
+                                        <% } else {%>
+                                        <option value="<%= doctorFormat(d) %>"><%= doctorFormat(d) %></option>
+                                        <% } %>
+                                    <% }) %>
+                                <% } else { %>
+                                    <% doctor.map(d => { %>
+                                        <option value="<%= doctorFormat(d) %>" <%let doc = record.examiner === doctorFormat(d)? "selected":"";%> <%= doc %>><%= doctorFormat(d) %></option>
+                                    <% }) %>
+                                <% } %>
+                            </select>
+                            <label>Attending Physician</label>
+                        </div>
+                    </div>
+                    <!-- new -->
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <div class="input-field col s6 offset-s6 right">
+                                <div class="wrapper right-align">                               
+                                    <button type="submit" class="waves-effect btn"><i class="material-icons right">save</i>Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                  </div><!--col s4 -->
+
+                  <div class="col s4"></div>
+                </div>
+            </form>   
+    </div><!-- main row -->
+</div><!-- container -->
+
+<script type="text/javascript" src="assets/js/RecordValidation.js"></script>
+<% include ../partials/footer %>

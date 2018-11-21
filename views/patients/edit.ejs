@@ -1,0 +1,181 @@
+<% include ../partials/header %>
+
+<% let status = ['Single','Married','Separated','Divorced','Widowed','Partnership'] %>
+<!-- 2.3 -->
+
+<div class="container"><!-- container -->
+    <br><br>
+
+    <div class="row"> <!-- main row -->
+            <form class="col s12" method="POST" action="/patients/<%= patient.id %>/edit/?_method=PUT" onsubmit="">
+                <input type="hidden" name="_method" value="PUT">
+                <div class="row"><!-- upper row -->
+                    <div class="col s2" ></div>
+                
+                    <div class="col s8"><!-- s8 -->
+
+                       <div class="row">
+                            <% if(errorMessage) { %>
+                                <%- errorMsg %>
+                            <% } %>
+                            <% if(errors) { %>
+                                <ul>
+                                        <% errors.forEach((e) => { %>
+                                        <div class="alert alert-danger">
+                                            <strong><b>Warning!</b></strong> <%= e.msg %>
+                                        </div>
+                                        <% }) %>
+                                </ul>
+                            <% } %>
+                           <h4>Update Patient's Profile</h4>
+                       </div>
+                            
+                        <!-- start names -->
+                        <div class="row"><!-- row 1 -->
+                            <div class="input-field col s4">
+                                <% if(errors || errorMessage) { %>
+                                    <input id="last_name" type="text" class="validate" name="last_name" value="<%= lastname %>">
+                                <% } else {%>
+                                <input id="last_name" type="text" class="validate" name="last_name" value="<%= patient.lastname %>">
+                                <% } %>
+                                <label for="last_name">Last Name</label>
+                                <span id="lastname-validation" class="error-message"></span>
+                            </div>
+
+                            <div class="input-field col s4">
+                                <% if(errors || errorMessage) { %>
+                                    <input id="first_name" type="text" class="validate" name="first_name" value="<%= firstname %>">
+                                <% } else {%>
+                                <input id="first_name" type="text" class="validate" name="first_name" value="<%= patient.firstname %>">
+                                <% } %>
+                                <label for="first_name">First Name</label>
+                                <span id="firstname-validation" class="error-message"></span>
+                            </div>
+
+                            <div class="input-field col s4">
+                                <% if(errors || errorMessage) { %>
+                                    <input id="middle_name" type="text" class="validate" name="middle_name" value="<%= middlename %>">
+                                <% }else { %>
+                                <input id="middle_name" type="text" class="validate" name="middle_name" value="<%= patient.middlename %>">
+                                <% } %>
+                                <label for="middle_name">Middle Name</label>
+                                <span id="middlename-validation" class="error-message"></span>
+                            </div>
+                        </div><!-- row 1 -->
+                        <!-- end names -->
+
+                        <div class="row"> <!-- start row 2 -->
+                             <div class="input-field col s4">
+                                
+                                <p>
+                                    <label>Gender : </label>
+                                    <label>
+                                    <% if(errors || errorMessage) { %>
+                                        <% if(gender == 'Male') { %>
+                                            <input class="with-gap" name="gender" type="radio" value="Male" checked/>
+                                        <% } else {%>
+                                            <input class="with-gap" name="gender" type="radio" value="Male"/>
+                                        <% } %>
+                                    <% } else {%>
+                                    <input class="with-gap" name="gender" type="radio" value="Male" <% let genM = patient.gender == "Male" ? "checked": "" %> <%= genM %> />
+                                    <% } %>
+                                    <span>Male</span>
+                                    </label>
+
+                                    <label>
+                                    <% if(errors || errorMessage) { %>
+                                        <% if(gender == 'Female') { %>
+                                            <input class="with-gap" name="gender" type="radio" value="Female" checked/>
+                                        <% } else {%>
+                                            <input class="with-gap" name="gender" type="radio" value="Female"/>
+                                        <% } %>
+                                    <% } else {%>
+                                    <input class="with-gap" name="gender" type="radio" value="Female" <% let genF = patient.gender == "Female" ? "checked": "" %> <%= genF %> />
+                                    <% } %>
+                                    <span>Female</span>
+                                    </label>
+                                </p>
+                     	    </div>
+
+                             <div class="input-field col s4">
+                                <% if(errors || errorMessage) { %>
+                                    <input type="date" id="birthdate" placeholder="mm/dd/yyyy" name="birth_date" value="<%= moment(birthdate).format('YYYY-MM-DD');%>">
+                                <% } else {%>
+                                <input type="date" id="birthdate" placeholder="mm/dd/yyyy" name="birth_date" value="<%= moment(patient.birthdate).format('YYYY-MM-DD');%>">
+                                <% } %>
+                                <label for="birthdate">Birthdate</label>
+                            </div>
+
+                            <div class="input-field col s4">
+                                <% if(errors || errorMessage) { %>
+                                    <input id="contact_no" type="text" class="validate" name="contact_no" value="<%=contact %>">
+                                <% } else {%>
+                                <input id="contact_no" type="text" class="validate" name="contact_no" value="<%= patient.contact %>">
+                                <% } %>
+                                <label for="contact_no">Contact No.</label>
+                                <span id="contact-validation" class="error-message"></span>
+                            </div>
+			            </div><!-- row 2 -->
+
+                        <div class="row"><!-- row 3 -->
+                            <div class="input-field col s6">
+                                    <select name="civil_status" value="Married">
+                                            <option value="" disabled>Choose your option</option>
+                                        <% if(errors || errorMessage) { %>
+                                            <% status.forEach((s) => { %>
+                                                <% if(s == civilStatus) { %>
+                                                    <option value="<%= s %>" selected><%= s %></option>
+                                                <% }else { %>
+                                                    <option value="<%=s%>"><%= s %></option>
+                                                <% } %>
+                                           <% }) %>
+                                        <% } else { %>
+                                       <% status.forEach((s) => { %>
+                                            <option value="<%= s %>"
+                                                <% let stat = patient.civilStatus == s ? "selected":""; %> <%= stat %> ><%= s %></option>
+                                       <% }) %>
+                                        <% } %>
+                                    </select>
+                                    <label>Civil Status</label>
+                            </div>
+
+                            <div class="input-field col s6">
+                                    <% if(errors || errorMessage) { %>
+                                    <input value="<%= nationality %>" id="nationality" type="text" class="validate" name="nationality">
+                                    <% } else { %>
+                                    <input value="<%= patient.nationality %>" id="nationality" type="text" class="validate" name="nationality">
+                                    <% } %>
+                                    <label for="nationality">Nationality</label>
+                                    <span id="nationality-validation" class="error-message"></span>
+                            </div>
+                        </div><!-- row 3 -->
+
+                        <div class="row"> <!-- start row 4 -->
+                            <div class="input-field col s12">
+                                <% if(errors || errorMessage) { %>
+                                    <textarea id="address" class="materialize-textarea" name="address"><%= address %></textarea>
+                                <% } else {%>
+                                <textarea id="address" class="materialize-textarea" name="address"><%= patient.address %></textarea>
+                                <% } %>
+                                <label for="address">Address</label>
+                                <span id="address-validation" class="error-message"></span>
+                            </div>
+                        </div> <!-- end row 4 -->
+
+                        <div class="row"> <!-- row 5 -->
+                            <div class="input-field col s6 offset-s6 right">
+                                <div class="wrapper right-align">                               
+                                    <button type="submit" class="waves-effect btn" id="btnSubmit"><i class="material-icons right">update</i>Update</button>
+                                </div>
+                            </div>
+                        </div> <!-- row 5 -->
+                    </div><!-- col s8 -->    
+                        <div class="col s2"></div>
+                </div><!-- upper row -->
+            </form>
+    </div><!-- main row -->
+</div><!-- container -->
+
+<script type="text/javascript" src="assets/js/PatientValidation.js"></script>
+
+<% include ../partials/footer %>

@@ -1,0 +1,67 @@
+<% include ../partials/header %>
+
+<div class="container"><!-- container -->
+    <br><br><br><br><br><br>
+    <% if(errors) { %>
+        <% errors.forEach((error) => { %>
+            <div class='alert alert-danger'><%= error.msg %></div>
+        <% }) %>
+    <% } %>
+
+    <div class="row"> <!-- main row -->
+            <form class="col s12" method="POST" action="users/<%=user.id%>/password/edit/?_method=PUT" onsubmit="return //formValidation()">
+            <input type="hidden" name="_method" value="PUT">
+                <div class="col s4"></div>
+
+                <div class="col s4">
+    
+                    <div class="row"><!--row 1-->
+                      <div class="input-field col s12">
+                          <%if(errors) {%>
+                            <input id="password" type="password" value="<%= password %>" class="validate" name="password">
+                          <% } else { %>
+                          <input id="password" type="password" class="validate" name="password">
+                          <% } %>
+                          <label for="password">New Password</label>
+                          <span id="password-validation" class="error-message"></span>
+                      </div>
+                    </div>
+
+                    <div class="row"><!--row 1-->
+                      <div class="input-field col s12">
+                          <input id="password2" type="password" class="validate" name="password2">
+                          <label for="password2">Confirm Password</label>
+                          <span id="password2-validation" class="error-message"></span>
+                     </div>
+                    </div>
+
+                    <div class="row"><!--row 1-->
+                        <div class="input-field col s12">
+                            <div class="wrapper right-align">                               
+                                <button type="submit" class="waves-effect btn"><i class="material-icons right" id="btnChange">save</i>Update</button>
+                            </div>  
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col s4"></div>
+            </form>
+    </div><!-- main row -->
+</div><!-- container -->
+
+<script type="text/javascript">
+  function formValidation() {
+    var pass1 = document.getElementById('password');
+    var pass2 = document.getElementById('password2');
+    if(pass1.value !== pass2.value) {
+      alert("Password did not matched the confirm password");
+      return false;
+    } else {
+      return false;
+    }
+    console.log("not match");
+  }
+</script>
+
+<% include ../partials/footer %>

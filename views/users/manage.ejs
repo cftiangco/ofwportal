@@ -1,0 +1,68 @@
+<% include ../partials/header %>
+
+<div class="container"><!-- container -->
+  <div class="row">
+    <div class="col s2">
+      
+    </div>
+      <div class="col s8">
+        <form method="GET" action="/users/manage">
+        <div class="row"><!-- row -->
+            <!-- search content here-->
+            <div class="input-field col s11">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="icon_prefix" type="text" class="validate" name="search">
+                <label for="icon_prefix">Search Last Name</label>
+            </div>
+
+            <div class="input-field col s1">
+                <button type="submit" class="waves effect waves-light btn">Go!</button>
+            </div>
+        </div><!-- row -->
+        </form>
+      </div>
+    <div class="col s2"></div>
+  </div>
+
+    <div class="row"> <!-- main row -->
+        <div class="col s2"></div>
+
+          <div class="col s8">
+            <ul class="collection">
+        <% if(users && users.length > 0) { %>
+            <% users.forEach((user) => { %>
+              <li class="collection-item avatar">
+                <%if(user.userType == 'admin') { %>
+                  <img src="images/account-admin.png" alt="" class="circle">
+                <% } else if(user.userType == 'client') { %>
+                  <img src="images/client.png" alt="" class="circle">
+                <% } else {%>
+                  <img src="images/user.png" alt="" class="circle">
+                <% } %>
+                  <span class="title">Full Name: <%= user.lastname %>, <%= user.firstname %> <%= user.middlename.slice(0,1); %>.</span>
+                  <p>Type: <%= user.userType.toUpperCase() %><br>
+                     Username: <%= user.username %></br>
+                     Status: <%= user.status %>
+                  </p>
+                  <a href="/users/<%=user.id%>/edit" class="secondary-content"><i class="material-icons">edit</i></a>
+
+                  <form method="POST" action="/users/<%=user.id%>/delete?_method=DELETE">
+                    <button type="submit">Delete This Account</button>
+                  </form>
+              </li>
+            <% }) %>
+       <% }  else { %>
+          <li class="collection-item" style="text-align:center;">No Record Found.</li>
+       <% } %>
+            </ul>
+          </div>
+
+        <div class="col s2"></div>
+    </div><!-- main row -->
+
+    <div class="fixed-action-btn">
+        <a href="/users/add" class="btn-floating btn-large waves-light red modal-trigger pulse" ><i class="large material-icons">add</i></a>
+    </div>
+</div><!-- container -->
+
+<% include ../partials/footer %>

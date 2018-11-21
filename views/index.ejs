@@ -1,0 +1,48 @@
+<% include partials/header %>
+
+
+<div class="container"><!-- container -->
+    <br><br>
+
+    <div class="row"> <!-- main row -->
+            <form class="col s12" method="POST" action="/users/login" onsubmit="">
+               <div class="row">
+                  <div class="col s4"></div>
+
+                    <div class="col s4"><!-- s4 -->
+                        <div class="row">
+                          <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="username" type="text" class="validate" name="username">
+                            <label for="username">Username</label>
+                            <span id="username-validation" class="error-message"></span>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="input-field col s12">
+                            <i class="material-icons prefix">lock</i>
+                            <input id="password" type="password" class="validate" name="password">
+                            <label for="password">Password</label>
+                            <span id="password-validation" class="error-message"></span>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <div class="wrapper right-align">                               
+                                    <button type="submit" class="waves-effect btn"><i class="material-icons left">https</i>Login</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- s4 -->
+
+                  <div class="col s4"></div>
+               </div>
+            </form>   
+    </div><!-- main row -->
+</div><!-- container -->
+
+<script type="text/javascript" src="assets/js/RecordValidation.js"></script>
+<% include partials/footer %>

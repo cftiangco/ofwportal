@@ -1,0 +1,105 @@
+<% include ../partials/header %>
+
+<div class="container"><!-- container -->
+    <% include ../partials/patient-profile %>
+    <br><br>
+<form class="col s12" method="POST" action="/patients/<%=patient.id%>/records/<%=record.id%>/results/add">
+    <div class="row"> <!-- main row -->
+           <div class="col s2"></div>
+
+           <div class="col s8">
+             
+              <div class="row">
+                    <div class="input-field col s6">
+                        <select name="evaluator">
+                            <option value="" disabled selected>Choose</option>
+                            <% doctor.map(doc => { %>
+                                <option value="<%= doctorFormat(doc) %>"><%= doctorFormat(doc) %></option>
+                            <% }) %>
+                        </select>
+                        <label>Evaluator</label>
+                    </div>
+
+                    <div class="input-field col s6">
+                        <input id="visit_date" type="date" class="validate" name="visit_date" required>
+                        <label for="visit_date">Visit Date</label>
+                    </div>
+              </div>
+
+              <div class="row">
+                      <div class="input-field col s12">
+                          <textarea id="findings" class="materialize-textarea" name="findings" required></textarea>
+                          <label for="findings">Findings</label>
+                      </div>
+              </div>
+
+              <div class="row">
+                      <div class="input-field col s12">
+                          <textarea id="recommendation" class="materialize-textarea" name="recommendation"></textarea>
+                          <label for="recommendation">Recommendation</label>
+                      </div>
+              </div>
+
+              <div class="row">
+                  <div class="input-field col s6">
+                      <input id="follow_up" type="text" class="validate" name="follow_up">
+                      <label for="follow_up">Follow Up</label>
+                  </div>
+
+                  <div class="input-field col s6">
+                      <input id="clearance" type="text" class="validate" name="clearance">
+                      <label for="clearance">Clearance</label>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="input-field col s4">
+                      <textarea id="remarks" class="materialize-textarea" name="remarks"></textarea>
+                          <label for="remarks">Remarks</label>
+                  </div>
+
+                  <div class="input-field col s4">
+                      <textarea id="doctors_note" class="materialize-textarea" name="doctors_note"></textarea>
+                          <label for="doctors_note">Doctor's Notes</label>
+                  </div>
+                  <% let status = ['New','Pending','Fit','Unfit','Expired']%>
+                  <div class="input-field col s2">
+                      <select name="status" required>
+                          <option value="" disabled selected>Choose</option>
+                          <% status.forEach((s) => { %>
+                            <option value="<%= s %>"><%= s %></option>
+                          <% })%>
+                      </select>
+                      <label>Status</label>
+                  </div>
+
+                  <% let privacies = ['Public','Private']%>
+                  <div class="input-field col s2">
+                      <select name="privacy" required>
+                          <option value="" disabled selected>Choose</option>
+                          <% privacies.forEach((p) => { %>
+                            <option value="<%= p %>"><%= p %></option>
+                          <% })%>
+                      </select>
+                      <label>Privacy</label>
+                  </div>
+                  
+              </div>
+
+              <div class="row"> <!-- row 5 -->
+                <div class="input-field col s6 offset-s6 right">
+                    <div class="wrapper right-align">                               
+                        <button type="submit" class="waves-effect btn" onclick="return customeAdd()"><i class="material-icons right">save</i>Save</button>
+                    </div>
+                </div>
+            </div> <!-- row 5 -->
+
+           </div><!-- col s8 -->
+
+           <div class="col s2"></div>
+    </div><!-- main row -->
+  </form>
+</div><!-- container -->
+
+
+<% include ../partials/footer %>

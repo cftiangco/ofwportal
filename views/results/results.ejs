@@ -1,0 +1,83 @@
+<% include ../partials/header %>
+
+<div class="container">
+        
+        <div class="row" id="result-style"><!-- results-header -->
+                <div class="col s4">
+
+                    <ul class="collection">
+                            <li class="collection-item"><b>Patient Name :</b> <%= patient.lastname %>, <%= patient.firstname %> <%= patient.middlename %></li>
+                            <li class="collection-item"><b>Gender :</b> <%= patient.gender %></li>
+                            <li class="collection-item"><b>Birthdate : </b><%=moment(patient.birthdate).format('LL')%></li>
+                    </ul>
+                </div>
+            
+                <div class="col s4">
+                        <ul class="collection">
+                                <li class="collection-item"><b>Civil Status : </b><%= patient.civilStatus %></li>
+                                <li class="collection-item"><b>Nationality : </b><%= patient.nationality %></li>
+                                <li class="collection-item"><b>Contact # : </b><%= patient.contact %></li>
+                                <li class="collection-item"><b>Passport # : </b><%= records.passport %></li>
+                        </ul> 
+                    
+                </div>
+            
+                <div class="col s4">
+                        <ul class="collection">
+                                <li class="collection-item"><b>Agency : </b><%= records.agency %></li>
+                                <li class="collection-item"><b>Destination : </b><%= records.destination %></li>
+                                <li class="collection-item"><b>Date of Availment: </b><%= moment(records.availmentDate).format('LL'); %></li>
+                                <li class="collection-item"><b>Examining Physician: </b> <%= records.examiner %></li>
+                        </ul> 
+                </div>
+            </div> <!-- result-header -->
+    <div class="table-responsive">
+       <table class="table table-condensed " id="wrapper">
+            <thead class="table-headers">
+                <tr>
+                    <th>Evaluator</th>
+                    <th>Visit Date</th>
+                    <th>Remarks</th>
+                    <th>Status</th>
+                <% if(user.userType !== 'client') { %>
+                    <th>Privacy</th>
+                <% } %>
+                    <th>View</th>
+                </tr>
+            </thead>
+<% if(records.results.length > 0) {%>
+            <tbody>
+            <% records.results.forEach((result) => { %>
+                    <tr>
+                        <td><%= result.evaluator %></td>
+                        <td><%= moment(result.date).format('L') %></td>
+                        <td><%= result.remarks %></td>
+                        <td><%= result.status %></td>
+                        <% if(user.userType !== 'client') { %>
+                            <td><%= result.privacy %></td>
+                        <% } %>
+                        <td><a href="/patients/<%=patient.id%>/records/<%=records.id%>/results/<%=result.id%>">View</a></td>                          
+                    </tr>
+            <% }); %>
+            </tbody>
+<% } else { %>
+        <tbody>
+                <tr>
+                        <th colspan=13><h5 class="text-center text-warning">No Result Found.</h5></th>
+                </tr>
+        </tbody>
+<% } %>
+       </table>
+    </div>
+
+
+
+<% if(user.userType !== 'client') { %>
+        <div class="fixed-action-btn">
+                        <a href="/patients/<%= patient.id %>/records/<%= records.id%>/results/add" class="btn-floating btn-large waves-light red modal-trigger pulse" ><i class="large material-icons">add</i></a>
+        </div>
+<% } %>
+</div>
+
+
+<% include ../partials/footer %>

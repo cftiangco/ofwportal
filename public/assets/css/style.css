@@ -1,0 +1,119 @@
+
+#head-cursor {
+    cursor: pointer;
+}
+
+@media (min-width: 1200px) {
+    .container {
+      width: 1700px;
+    }
+  }
+
+td {
+    word-wrap:break-word;
+    word-break:break-word;
+}
+
+div.dataTables_wrapper div.dataTables_length select {
+  width: 75px;
+  display: inline-block;
+  display:none;
+}
+
+div.dataTables_wrapper div.dataTables_filter label {
+  font-weight: normal;
+  white-space: nowrap;
+  text-align: left;
+  margin-top: 21px;
+}
+
+.center-icon {
+  text-align:center;
+}
+
+.main-table tr, th, td, a {
+  text-align:center;
+}
+
+.result-info {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.form-inline {
+  display:inline;
+}
+
+.btn-delete {
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.button-center {
+  text-align:center;
+}
+
+.msg {
+  text-align:center;
+  font-weight:bold;
+}
+
+#result-style {
+  font-family:Verdana, Geneva, Tahoma, sans-serif; 
+}
+
+.error-message {
+  color:red;
+  display: none;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#agency {
+  display: none;
+}
+
+.result {
+  background-color:white;
+}
+
+
+.table-result tr td {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 15px;
+}
+
+.result-header {
+  text-align:left;
+  border-right:1px solid #ddd;
+}
+
+.result-content {
+  text-align:left;
+}
+
+/*
+.encoded {
+  text-align:right;
+  background-color: black;
+  color:white;
+  display:inline;
+  float: right;
+  border-radius: 2px;
+}
+*/
+.result-head {
+  background-color: #26a69a;
+  color:#fff;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.col-item {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight:bold;
+}
+
+.table-headers {
+  background-color:#26a69a;
+  color:#fff;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

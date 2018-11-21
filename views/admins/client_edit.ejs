@@ -1,0 +1,133 @@
+<% include ../partials/header %>
+
+
+<div class="container"><!-- container -->
+    <br><br>
+      <div class="row"> <!-- main row -->
+        <form class="col s12" method="POST" action="admin/client/<%=agency.id%>/edit/?_method=PUT">
+            <div class="col s2"></div>
+              <div class="col s8">
+
+                  <div class="row">
+                      <% if(errors) { %>
+                        <ul>
+                                <% errors.forEach((e) => { %>
+                                <div class="alert alert-danger">
+                                    <strong><b>Warning!</b></strong> <%= e.msg %>
+                                </div>
+                                <% }) %>
+                        </ul>
+                    <% } %>
+                  </div>
+
+                  <div class="row">
+                    <h4>Client Registration</h4>
+                        <div class="row">
+                          <div class="input-field col s12">
+                           <% if(errors) { %>
+                              <input id="name" type="text" class="validate" name="name" value="<%= name %>">
+                           <% } else { %>
+                              <input id="name" type="text" class="validate" name="name" value="<%= agency.name %>">
+                           <% } %>
+                            <label class="active" for="name" >Agency Name</label>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s8">
+                              <% if(errors) { %>
+                                <input id="contact_person" type="text" class="validate" name="contact_person" value="<%= contactPerson %>">
+                              <% } else { %>
+                                <input id="contact_person" value="<%= agency.contactPerson %>" type="text" class="validate" name="contact_person">
+                              <% } %>
+                              <label class="active" for="contact_person">Contact Person</label>
+                            </div>
+
+                            <div class="input-field col s4">
+                               <% if(errors) { %>
+                                <input id="contact" type="text" name="contact" class="validate" value="<%= contact %>">
+                               <% } else { %>
+                                <input id="contact" type="text" value="<%= agency.contact %>" name="contact" class="validate">
+                               <% } %>
+                                <label class="active" for="contact">Contact No.</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                              <% if(errors) { %>
+                                <textarea id="address" class="materialize-textarea" data-length="120" name="address"><%= address %></textarea>
+                              <% } else { %>
+                                <textarea id="address" class="materialize-textarea" data-length="120" name="address"><%= agency.address %></textarea>
+                              <% } %>
+                                <label for="address">Address</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s6">
+                                
+                                <p>
+                                    <label>
+                                    <% if(errors) { %>
+                                      <%  if(status == 'active') { %>
+                                          <input name="status" value="active" type="radio" checked />
+                                      <% } else { %>
+                                          <input name="status" value="active" type="radio"/>
+                                      <%  } %>
+                                      <% } else { %>
+                                        <% if(agency.status === 'active') { %>
+                                              <input name="status" value="active" type="radio" checked />
+                                          <%  } else { %>
+                                              <input name="status" value="active" type="radio"/>
+                                          <%  } %>
+                                      <% } %>
+                                      <span>Active</span>
+                                    </label>
+                                  </p>
+                                  <p>
+                                    <label>
+                                     <% if(errors) { %>
+                                     <%   if(status == 'inactive') { %>
+                                          <input name="status" value="inactive" type="radio" checked/> 
+                                      <%  } else { %>
+                                          <input name="status" value="inactive" type="radio" />
+                                      <%  } %>
+                                    <%  } else { %>
+                                          <%  if(agency.status === 'inactive'){ %>
+                                              <input name="status" value="inactive" type="radio" checked/>
+                                          <%  } else { %>
+                                              <input name="status" value="inactive" type="radio" />
+                                          <%  } %>
+                                    <%  } %>
+                                      <span>Inactive</span>
+                                    </label>
+                                  </p>
+                            </div>
+
+                            <div class="input-field col s4 offset-s6 right">
+                                <div class="wrapper right-align">                               
+                                    <button type="submit" class="waves-effect btn"><i class="material-icons right">update</i>Update</button>
+                                  </form>   
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="row">
+                                <div class="fixed-action-btn">
+                                    <form method="POST" action="/admin/client/<%=agency.id%>/delete/?_method=DELETE">
+                                        <input type="hidden" name="_method" value="DELETE"> 
+                                        <button type="submit">DEL<i class="material-icons">delete</i></button>
+                                    </form>
+                                </div>
+                        </div>
+                  </div>
+                  
+              </div>
+            <div class="col s2"></div>
+      </div><!-- main row -->
+      
+</div><!-- container -->
+
+<% include ../partials/footer %>

@@ -1,0 +1,95 @@
+<% include ../partials/header %>
+
+
+<div class="container"><!-- container -->
+    <br><br>
+
+    <div class="row"> <!-- main row -->
+        <form class="col s12" method="POST" action="admin/country/<%=country.id%>/edit?_method=PUT">
+          <input type="hidden" name="_method" value="PUT">
+          <div class="col s4"></div>
+            <div class="col s4">
+
+                    <div class="row">
+                            <% if(errors) { %>
+                              <ul>
+                                      <% errors.forEach((e) => { %>
+                                      <div class="alert alert-danger">
+                                          <strong><b>Warning!</b></strong> <%= e.msg %>
+                                      </div>
+                                      <% }) %>
+                              </ul>
+                          <% } %>
+                    </div>
+
+                    <h5>Update Country</h5>
+
+                <div class="row">
+                  <div class="input-field col s12">
+                     <% if(errors) { %>
+                        <input id="name" type="text" class="validate" name="name" value="<%= name %>">
+                     <% } else { %>
+                        <input id="name" type="text" class="validate" name="name" value="<%= country.name %>">
+                     <% } %>
+                      <label for="name">Country Name</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                    <p>
+                        <label>
+                            <%  if(errors) { %>
+                                <%  if(status == 'active') { %>
+                                    <input name="status" value="active" type="radio" checked/>
+                                <%  } else { %>
+                                    <input name="status" value="active" type="radio"/>
+                                <%  } %>
+                            <%  } else { %>
+                              <%  if(country.status === 'active') { %>
+                                  <input name="status" value="active" type="radio" checked/>
+                              <%  } else { %>
+                                  <input name="status" value="active" type="radio"/>
+                              <%  } %>
+                            <%  } %>  
+                              <span>Active</span>
+                        </label>
+
+                        <label>
+                         <%   if(errors) { %>
+                              <%  if(status == 'inactive') { %>
+                                    <input name="status" value="inactive" type="radio" checked/>
+                              <%  } else { %>
+                                    <input name="status" value="inactive" type="radio" />
+                              <%  }  %>
+                            <% } else { %>
+                               <% if(country.status === 'inactive') { %>
+                                  <input name="status" value="inactive" type="radio" checked/>
+                               <% } else { %>
+                                  <input name="status" value="inactive" type="radio" />
+                               <% } %>
+                                
+                           <% } %>
+                              
+                              <span>Inactive</span>
+                        </label>
+                    </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                  <div class="input-field col s4 offset-s6 right">
+                      <div class="wrapper right-align">                               
+                          <button type="submit" class="waves-effect btn"><i class="material-icons right">save</i>Update</button>
+                        </form>   
+                      </div>
+                  </div>
+                </div>
+
+            </div>
+          <div class="col s4"></div>
+        </form>
+    </div><!-- main row -->
+</div><!-- container -->
+
+<% include ../partials/footer %>

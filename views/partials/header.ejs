@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OFW Portal</title>
+    <base href="/">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/datatables.net-bs/css/datatables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/materialize/dist/css/materialize.css">
+    <link rel="stylesheet" type="text/css" href="assets/jquery-ui/jquery-ui.min">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
+
+<ul id="dropdown1" class="dropdown-content">
+  <!-- <li><a href="#!">Login</a></li> -->
+  <li class="divider"></li>
+  <li><a href="/users/logout">Logout</a></li>
+</ul>
+
+<nav style="position:fixed;z-index:1;top:0">
+    <div class="nav-wrapper">
+     <% if(!user) { %>
+        <a href="/patients" class="brand-logo center">OFW Portal</a>
+     <% } else {%>
+
+          <a href="/patients" class="brand-logo center">OFW Portal</a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a href="/patients"><i class="material-icons left">home</i>Home</a></li>
+          <!--  <li><a href="badges.html"><i class="material-icons left">folder_shared</i>Records</a></li> -->
+            <li><a href="badges.html"><i class="material-icons left">info</i>About</a></li>
+          </ul>
+
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <% if(user && user.userType === 'admin') { %>
+          <li><a href="/admin"><i class="material-icons left">group</i>C & C</a></li>
+          <li><a href="/users/manage"><i class="material-icons left">account_box</i>Manage Accounts</a></li>
+      <% } %>
+
+            <li><a class="dropdown-trigger" href="#!" data-target="dropdown1"><i class="material-icons left">person_pin</i>Logged in As <%= user.firstname %><i class="material-icons right">arrow_drop_down</i></a></li>
+          </ul>
+    </div>
+    <% } %>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+  <li><a href="/patients"><i class="material-icons left">home</i>Home</a></li>
+  <!-- <li><a href="badges.html"><i class="material-icons left">folder_shared</i>Records</a></li> -->
+  <li><a href="badges.html"><i class="material-icons left">info</i>About</a></li>
+    <li class="divider"></li>
+   <%if(user && user.userType === 'admin') { %>
+      <li><a href="collapsible.html"><i class="material-icons left">group</i>Manage Clients</a></li>
+      <li><a href="mobile.html"><i class="material-icons left">account_box</i>Manage Accounts</a></li>
+      <li class="divider"></li>
+   <% } %>
+      <li><a href="/users/logout">Logout</a></li>
+</ul>
+</div>
+<br><br><br><br><br>
+
+<div class="container">
+  <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8 msg"><% include ../partials/msg %></div>
+      <div class="col-sm-2"></div>
+  </div>
+</div>
+        

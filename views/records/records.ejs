@@ -1,0 +1,102 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2">
+           
+        </div>
+
+<div class="col-sm-8">
+    
+
+<div class="row">
+    <div class="">
+      <div class="card white lighten-5">
+        <div class="card-content black-text">
+          <span class="card-title"><h5><strong><%= patient1.lastname + ", " + patient1.firstname + " " + patient1.middlename %></strong></h5></span>
+                <div class="result-info">
+                        <p>Birthdate : <%= moment(patient1.birthdate).format('MMMM DD, YYYY'); %> </p>
+                        <p>Gender : <%= patient1.gender %></p>
+                        <p>Civil Status : <%= patient1.civilStatus %> </p>
+                        <p>Nationality : <%= patient1.nationality %></p>
+                        <p>Address : <%= patient1.address %></p>
+                        <p>Contact No. : <%= patient1.contact %></p>
+                </div>
+        </div>
+        <div class="card-action">
+       <% if(user.userType === 'admin') { %>
+          <a href="/patients/<%= patient1.id %>/edit " class="white-black"><i class="material-icons">edit</i></a>
+
+        <form class="form-inline" action="/patients/delete/<%= patient1.id %>?_method=DELETE" method="post">
+            <input type="hidden" name="_method" value="DELETE"> 
+            <button type="submit" class="white-black btn-delete" onclick="return customeDelete()"><i class="material-icons">delete</i></button>
+         </form>
+       <% } %>
+        </div> <!-- card-action -->
+      </div>
+    </div>
+  </div>
+
+            
+
+<!-- Start -->
+    <% if(records.length > 0) {%>
+        <% records.forEach((record) => { %> 
+            <ul class="collapsible popout">
+                <li>
+                <div class="collapsible-header"><i class="material-icons">remove_red_eye</i> <h3 class="panel-title" data-target="#<%= record.id %>" data-toggle="collapse" id="head-cursor"><strong>Visit Date : <%= moment(record.availmentDate).format('MMM Do YY'); %></strong> </h3></div>
+                    <div class="collapsible-body">
+                            <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>Agency</th>
+                                            <th>Destination</th>
+                                            <th>Passport</th>
+                                    <%if(user.userType === 'admin') {%>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
+                                    <%}%>
+                                            <th>Results</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><%= record.agency %></td>
+                                            <td><%= record.destination %></td>
+                                            <td><%= record.passport %></td>
+                                    <%if(user.userType === 'admin') {%>
+                                        <td><a href="/patients/<%=patient1.id%>/records/<%=record.id%>/edit"><i class="material-icons">edit</i></a></td>
+                                            <td>
+                                                    <form class="form-inline" action="/patients/<%= patient1.id %>/records/<%=record.id%>/delete?_method=DELETE" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE"> 
+                                                        <button type="submit" class="white-black btn-delete" onclick="return customeDelete()"><i class="material-icons">delete</i></button>
+                                                     </form>
+                                            </td>
+                                    <%}%>
+                                            <td class="center-icon"><a href="/patients/<%= patient1.id %>/records/<%= record.id %>/results"><i class="material-icons ">insert_drive_file</i></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                    </div>
+                </li>
+            </ul>
+        <% }) %>
+    <% } else { %>
+                <h5 class="text-center text-warning">No Record Found.</h5>
+    <% } %>
+
+<div class="row">
+    <div class="col s12 button-center">
+        <a class="btn-floating waves-effect waves-light red" href="patients/<%= patient1.id %>/records/add"><i class="material-icons">add</i></a>
+    </div>
+</div>
+<!-- end -->
+
+
+
+        <div class="col-sm-2">
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

@@ -1,0 +1,28 @@
+<div class="row" id="result-style">
+    <div class="col s4">
+        <ul class="collection">
+                <li class="collection-item"><b>Patient Name :</b> <%= patient.lastname %>, <%= patient.firstname %> <%= patient.middlename %></li>
+                <li class="collection-item"><b>Gender :</b> <%= patient.gender %></li>
+                <li class="collection-item"><b>Birthdate : </b><%=moment(patient.birthdate).format('LL')%></li>
+        </ul>
+    </div>
+
+    <div class="col s4">
+            <ul class="collection">
+                    <li class="collection-item"><b>Civil Status : </b><%= patient.civilStatus %></li>
+                    <li class="collection-item"><b>Nationality : </b><%= patient.nationality %></li>
+                    <li class="collection-item"><b>Contact # : </b><%= patient.contact %></li>
+                    <li class="collection-item"><b>Passport # : </b><%= record.passport %></li>
+            </ul> 
+        
+    </div>
+
+    <div class="col s4">
+            <ul class="collection">
+                    <li class="collection-item"><b>Agency : </b><%= record.agency %></li>
+                    <li class="collection-item"><b>Destination : </b><%= record.destination %></li>
+                    <li class="collection-item"><b>Date of Availment: </b><%= moment(record.availmentDate).format('LL'); %></li>
+                    <li class="collection-item"><b>Examining Physician: </b> <%= record.examiner %></li>
+            </ul> 
+    </div>
+</div> 
